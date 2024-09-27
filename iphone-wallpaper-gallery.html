@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iPhone Wallpaper Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .wallpaper {
+            width: calc(20% - 16px);
+            aspect-ratio: 9 / 19.5;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .wallpaper:hover {
+            transform: scale(1.05);
+        }
+        .wallpaper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        @media (max-width: 1200px) {
+            .wallpaper {
+                width: calc(25% - 15px);
+            }
+        }
+        @media (max-width: 900px) {
+            .wallpaper {
+                width: calc(33.33% - 13.33px);
+            }
+        }
+        @media (max-width: 600px) {
+            .wallpaper {
+                width: calc(50% - 10px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="gallery" class="gallery">
+        <!-- The gallery will be populated by JavaScript -->
+    </div>
+
+    <script>
+        /*
+      // Function to create a wallpaper element
+        function createWallpaperElement(imageSrc) {
+            const wallpaper = document.createElement('div');
+            wallpaper.className = 'wallpaper';
+            
+            const img = document.createElement('img');
+            img.src = 'images/' + imageSrc;
+            img.alt = 'iPhone Wallpaper';
+            
+            wallpaper.appendChild(img);
+            return wallpaper;
+        }
+
+        // Function to load images and create gallery
+        function loadGallery() {
+            const gallery = document.getElementById('gallery');
+            const imageCount = 377; // Adjust this number based on how many images you have
+
+            for (let i = 1; i <= imageCount; i++) {
+                const imageName = `${i}.jpg`;
+                
+                const wallpaperElement = createWallpaperElement(imageName);
+                gallery.appendChild(wallpaperElement);
+            }
+        }
+
+        // Load the gallery when the page is ready
+        document.addEventListener('DOMContentLoaded', loadGallery); */
+    </script> 
+    <script>
+        // Array of supported file extensions
+        const supportedExtensions = ['jpg', 'jpeg', 'png'];
+
+        // Function to create a wallpaper element
+        function createWallpaperElement(imageSrc) {
+            const wallpaper = document.createElement('div');
+            wallpaper.className = 'wallpaper';
+            
+            const img = document.createElement('img');
+            img.src = 'images/' + imageSrc;
+            img.alt = 'iPhone Wallpaper';
+            
+            wallpaper.appendChild(img);
+            return wallpaper;
+        }
+
+        // Function to check if an image exists
+        function checkImage(imageSrc) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.onload = () => resolve(true);
+                img.onerror = () => resolve(false);
+                img.src = 'images/' + imageSrc;
+            });
+        }
+
+        // Function to load images and create gallery
+        async function loadGallery() {
+            const gallery = document.getElementById('gallery');
+            let imageIndex = 1;
+
+            while (true) {
+                let imageFound = false;
+
+                for (const ext of supportedExtensions) {
+                    const fileName = `${imageIndex}.${ext}`;
+                    const fileNameUpperCase = `${imageIndex}.${ext.toUpperCase()}`;
+
+                    if (await checkImage(fileName)) {
+                        gallery.appendChild(createWallpaperElement(fileName));
+                        imageFound = true;
+                        break;
+                    } else if (await checkImage(fileNameUpperCase)) {
+                        gallery.appendChild(createWallpaperElement(fileNameUpperCase));
+                        imageFound = true;
+                        break;
+                    }
+                }
+
+                if (!imageFound) {
+                    break; // Stop if no more images are found
+                }
+
+                imageIndex++;
+            }
+        }
+
+        // Load the gallery when the page is ready
+        document.addEventListener('DOMContentLoaded', loadGallery);
+    </script>
+</body>
+</html>
