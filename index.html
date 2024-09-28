@@ -100,7 +100,8 @@
             const img = document.createElement('img');
             img.src = 'images/' + imageSrc;
             img.alt = 'iPhone Wallpaper';
-            
+            img.lazy = 'lazy'
+
             wallpaper.appendChild(img);
             return wallpaper;
         }
