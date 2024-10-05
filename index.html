@@ -24,7 +24,7 @@
             aspect-ratio: 9 / 19.5;
             overflow: hidden;
             border-radius: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
             transition: transform 0.3s ease;
         }
         .wallpaper:hover {
@@ -49,6 +49,16 @@
             .wallpaper {
                 width: calc(50% - 10px);
             }
+        }
+      
+        @media (prefers-color-scheme: dark) {
+        body {
+          background-color: #121212;
+          color: #e0e0e0;
+          }
+        .wallpaper {
+            box-shadow: 0 4px 8px rgba(255,255,255,0.1);
+          }
         }
     </style>
 </head>
